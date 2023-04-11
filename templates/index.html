@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Making Game</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <script>
+        const config = {{ config | tojson }};
+    </script>
+    <script src="/static/script.js" defer></script>
+</head>
+<body>
+    <h1>Market Making Game</h1>
+    <div class="container">
+        <div class="bid">
+            <h2>Bid</h2>
+            <label for="bid-price">Price: </label>
+            <input type="range" id="bid-price" min="0" max="100" step="1">
+            <span id="bid-price-display">0</span>
+            <br>
+            <label for="bid-size">Size: </label>
+            <input type="number" id="bid-size" min="0" step="1">
+            <div class="display-bid-size"></div>
+        </div>
+        <div class="ask">
+            <h2>Ask</h2>
+            <label for="ask-price">Price: </label>
+            <input type="range" id="ask-price" min="0" max="100" step="1">
+            <span id="ask-price-display">0</span>
+            <br>
+            <label for="ask-size">Size: </label>
+            <input type="number" id="ask-size" min="0" step="1">
+            <div class="display-ask-size"></div>
+        </div>
+        <button id="submit">Submit</button>
+    </div>
+</body>
+</html>

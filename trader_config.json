@@ -1,0 +1,33 @@
+{
+    "A": {
+        "risk_aversion": 0.5,
+        "expertise": 1,
+        "trading_frequency": 0.5,
+        "trading_size": 5,
+        "name": "A"
+    },
+    "B": {
+        "risk_aversion": 0.1,
+        "expertise": 0.7,
+        "trading_frequency": 0.9,
+        "trading_size": 2,
+        "name": "B"
+
+    },
+    "C": {
+        "risk_aversion": 0.3,
+        "expertise": 0.5,
+        "trading_frequency": 0.8,
+        "trading_size": 1,
+        "name": "C"
+
+    },
+    "D": {
+        "risk_aversion": 0.1,
+        "expertise": 0.3,
+        "trading_frequency": 0.9,
+        "trading_size": 3,
+        "name": "D"
+
+    }
+}
