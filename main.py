@@ -10,12 +10,12 @@ market_data['true_value'] = true_value
 traders_dictionary = dict()
 for name in ['A', 'B', 'C', 'D']:
     traders_dictionary[name] = Trader(trader_configs[name])
-
 player = Player()
-for i in range(3):
-    print(f"Round {i} :")
+
+
+def play_a_round(market_provided):
     # Play one round
-    player.make_market()
+    player.make_market(market_provided)
     market_data['player_market'] = player.myMarket
 
     for name in ['A', 'B', 'C', 'D']:
@@ -28,3 +28,5 @@ for i in range(3):
             print(f"Market is left [{player.myMarket['bid_size']}]@{player.myMarket['bid_price']} | [{player.myMarket['ask_size']}]@{player.myMarket['ask_price']}")
         else:
             print(f"Trader {name} does not trade.")
+    return {'exposure': player.exposure,
+            'trades': player.trades}

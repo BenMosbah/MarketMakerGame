@@ -1,7 +1,7 @@
 {
     "price_bounds": {
-        "min": 100000,
-        "max": 1000000
+        "min": 1,
+        "max": 20
     },
-    "step_size": 10000
+    "step_size": 1
 }

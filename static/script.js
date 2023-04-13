@@ -1,3 +1,15 @@
+async function postData(url = '', data = {}) {
+    const response = await fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+
+    return await response.json();
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const bidPriceInput = document.getElementById('bid-price');
     const bidPriceDisplay = document.getElementById('bid-price-display');
@@ -35,7 +47,9 @@ window.addEventListener('DOMContentLoaded', () => {
         const askPrice = parseInt(askPriceInput.value);
 
         if (bidPrice >= askPrice) {
-            askPriceInput.value = Math.min(100, bidPrice + 1);
+            askPriceInput.value = Math.min(config.price_bounds.max, bidPrice + parseInt(config.step_size));
+        } else {
+            askPriceInput.value = askPrice;
         }
 
         bidPriceDisplay.textContent = bidPriceInput.value;
@@ -53,17 +67,41 @@ window.addEventListener('DOMContentLoaded', () => {
         updateDisplaySize(askSizeInput.value, displayAskSize);
     });
 
-    submitButton.addEventListener('click', () => {
+    submitButton.addEventListener('click', async () => {
         const bidPrice = bidPriceInput.value;
         const askPrice = askPriceInput.value;
         const bidSize = bidSizeInput.value;
         const askSize = askSizeInput.value;
 
-        // Do something with the input data, e.g., send to the server, update the game state, etc.
-        console.log('Bid Price:', bidPrice);
-        console.log('Bid Size:', bidSize);
-        console.log('Ask Price:', askPrice);
-        console.log('Ask Size:', askSize);
+        // Send the submitted data to the server
+        const response = await postData('/submit_data', {
+            bidPrice: bidPrice,
+            bidSize: bidSize,
+            askPrice: askPrice,
+            askSize: askSize
+        });
+
+        // Update the player's position
+        const playerPositionElement = document.querySelector('#player-position span');
+        playerPositionElement.textContent = response.exposure;
+        // Update the table of trades
+        const tradesTableBody = document.querySelector('#trades-table tbody');
+        tradesTableBody.innerHTML = '';
+        response.trades.forEach(trade => {
+        const row = document.createElement('tr');
+        const actionCell = document.createElement('td');
+        actionCell.textContent = `You ${trade.fill_type}d`;
+        const sizeCell = document.createElement('td');
+        sizeCell.textContent = trade.trading_size;
+        const priceCell = document.createElement('td');
+        priceCell.textContent = trade.order_price;
+
+        row.appendChild(actionCell);
+        row.appendChild(sizeCell);
+        row.appendChild(priceCell);
+
+        tradesTableBody.appendChild(row);
+    });
     });
 
     // Initialize price displays
