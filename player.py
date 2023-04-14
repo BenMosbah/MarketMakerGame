@@ -13,7 +13,7 @@ class Player:
                 "ask_size": float(market_provided['askSize']),
                 }
 
-    def update_exposure_and_my_market(self, order_type, order_size, order_price):
+    def update_exposure_and_my_market(self, order_type, order_size, order_price, round):
         if order_type == 'buy':
             self.exposure -= order_size
             self.myMarket['ask_size'] -= order_size
@@ -21,7 +21,7 @@ class Player:
             self.exposure += order_size
             self.myMarket['bid_size'] -= order_size
         fill_type = 'sell' if order_type == 'buy' else 'buy'
-        self.trades.append({"fill_type": fill_type, "trading_size": order_size, "order_price": order_price})
+        self.trades.append({"fill_type": fill_type, "trading_size": order_size, "order_price": order_price, "round":round})
 
     def calculate_pnl(self, true_value):
         """

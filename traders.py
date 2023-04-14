@@ -41,12 +41,12 @@ class Trader:
 
         # Only trade "trading_frequency" of the time
         if random.random() < self.trading_frequency:
-            if fair_bid >= ask_price:
+            if fair_bid >= ask_price and ask_size > 0:
                 # Buy at the ask price
                 order_type = 'buy'
                 order_price = ask_price
                 order_size = min(self.trading_size, ask_size)
-            elif fair_ask <= bid_price :
+            elif fair_ask <= bid_price and bid_size > 0:
                 # Sell at the bid price
                 order_type = 'sell'
                 order_price = bid_price

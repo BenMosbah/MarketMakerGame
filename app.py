@@ -18,7 +18,7 @@ def index():
 @app.route('/submit_data', methods=['POST'])
 def submit_data():
     market_provided = request.get_json()
-
+    print(market_provided)
     # Call your Python function with the submitted data
     new_state = play_a_round(market_provided)
     print(new_state)
