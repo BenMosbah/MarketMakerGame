@@ -1,5 +1,24 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Courier New', monospace; /* Change the font to a monospace font */
+    background-color: #1e1e1e;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    padding: 20px;
+    background-color: #222;
+    margin-bottom: 50px;
+}
+
+#round-counter, #player-position {
+    display: inline-block;
+    margin: 0 20px;
+    padding: 5px 10px;
+    background-color: #333;
+    border-radius: 5px;
 }
 
 .container {
@@ -20,6 +39,7 @@ body {
     justify-content: center;
     flex-wrap: wrap;
     width: 200px;
+    height: 80px; /* Add a fixed height to reserve space for the maximum number of disks */
     margin-top: 20px;
 }
 
@@ -34,4 +54,43 @@ body {
 
 .ask .disk {
     background-color: #F44336;
+}
+
+button {
+    background-color: #3f51b5;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px 20px;
+    margin-top: 50px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #5c6bc0;
+}
+
+table {
+    width: 80%;
+    margin: 50px auto;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #444;
+    padding: 10px;
+    text-align: center; /* Add this line to center the content of table cells */
+}
+
+th {
+    background-color: #333;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #222;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #333;
 }
