@@ -129,7 +129,7 @@ window.addEventListener('DOMContentLoaded', () => {
         const playerPositionElement = document.querySelector('#player-position span');
         playerPositionElement.textContent = response.exposure;
         // UpdateSizeOptions based on new trade
-        //updateSizeOptions(parseInt(playerPositionElement.textContent));
+        updateSizeOptions(parseInt(playerPositionElement.textContent));
         // Update the table of trades
         const tradesTableBody = document.querySelector('#trades-table tbody');
         tradesTableBody.innerHTML = '';
@@ -151,6 +151,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
         // Increment the round number
         roundCounterElement.textContent = currentRound + 1;
+        updateDisplaySize(0, displayAskSize)
+        updateDisplaySize(0, displayBidSize)
     });
 
     // Initialize price displays
