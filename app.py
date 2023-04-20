@@ -24,6 +24,7 @@ def index():
     with open('config.json', 'r') as config_file:
         config = json.load(config_file)
     initialize_player()
+    print(config)
     return render_template('index.html', config=config)
 
 
@@ -37,6 +38,15 @@ def submit_data():
     session.modified = True
     print(new_state)
     return jsonify(new_state)
+
+
+@app.route('/get_results', methods=['POST'])
+def get_results():
+    score = 100  #
+    player = session['player']
+    print(player.trades)
+    # Return the results as a JSON response
+    return jsonify({'score': score})
 
 
 if __name__ == '__main__':

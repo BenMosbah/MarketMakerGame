@@ -10,6 +10,17 @@ async function postData(url = '', data = {}) {
     return await response.json();
 }
 
+async function getResults() {
+    const response = await fetch('/get_results', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+
+    return await response.json();
+}
+
 window.addEventListener('DOMContentLoaded', () => {
     const bidPriceInput = document.getElementById('bid-price');
     const bidPriceDisplay = document.getElementById('bid-price-display');
@@ -106,6 +117,11 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     submitButton.addEventListener('click', async () => {
+        // Check if the maximum number of rounds is reached
+        const roundCounterElement = document.querySelector('#round-counter span');
+        const currentRound = parseInt(roundCounterElement.textContent);
+        if (currentRound < config.maximum_number_of_rounds)
+        {
         // Get the current position
         const currentPosition = parseInt(document.querySelector('#player-position span').textContent);
         // Validate the bidSize and askSize values
@@ -114,8 +130,8 @@ window.addEventListener('DOMContentLoaded', () => {
         const bidSize = bidSizeInput.value;
         const askSize = askSizeInput.value;
         // Get the current round number
-        const roundCounterElement = document.querySelector('#round-counter span');
-        const currentRound = parseInt(roundCounterElement.textContent);
+        //const roundCounterElement = document.querySelector('#round-counter span');
+        //const currentRound = parseInt(roundCounterElement.textContent);
         // Send the submitted data to the server
         const response = await postData('/submit_data', {
             bidPrice: bidPrice,
@@ -134,9 +150,16 @@ window.addEventListener('DOMContentLoaded', () => {
         const tradesTableBody = document.querySelector('#trades-table tbody');
         tradesTableBody.innerHTML = '';
         response.trades.forEach(trade => {
+
         const row = document.createElement('tr');
         const actionCell = document.createElement('td');
-        actionCell.textContent = `You ${trade.fill_type}d`;
+        let fill;
+        if (trade.fill_type == 'buy') {
+            fill = 'bought';
+        } else {
+            fill = 'sold';
+        }
+        actionCell.textContent = `You ${fill}`;
         const sizeCell = document.createElement('td');
         sizeCell.textContent = trade.trading_size;
         const priceCell = document.createElement('td');
@@ -150,7 +173,17 @@ window.addEventListener('DOMContentLoaded', () => {
         });
 
         // Increment the round number
+
         roundCounterElement.textContent = currentRound + 1;
+        }
+
+        else{// Fetch the results from the backend
+            submitButton.textContent = "Get Results!";
+
+            const results = await getResults();
+            alert(`Here are your results: Score = ${results.score}`);
+            return;}
+
         updateDisplaySize(0, displayAskSize)
         updateDisplaySize(0, displayBidSize)
     });
