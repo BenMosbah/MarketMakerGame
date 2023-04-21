@@ -40,13 +40,19 @@ def submit_data():
     return jsonify(new_state)
 
 
-@app.route('/get_results', methods=['POST'])
+@app.route('/get_results', methods=['GET','POST'])
 def get_results():
-    score = 100  #
     player = session['player']
-    print(player.trades)
+    pnl_score = str(player.calculate_pnl(true_value))+'%'
+    tightness_score = str(player.get_tightness_score())+'%'
+    liquidity_score = str(player.get_liquidity_score())
+    inventory_score = str(player.get_inventory_score())
+    print(pnl_score)
     # Return the results as a JSON response
-    return jsonify({'score': score})
+    return jsonify({'pnl_score': pnl_score,
+                    'tightness_score': tightness_score,
+                    'liquidity_score': liquidity_score,
+                    'inventory_score': inventory_score})
 
 
 if __name__ == '__main__':

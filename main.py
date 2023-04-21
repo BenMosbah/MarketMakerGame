@@ -3,7 +3,9 @@ import json
 
 trader_configs = json.load(open('trader_config.json'))
 market_data = {}
-true_value = 11
+with open('config.json', 'r') as config_file:
+    config = json.load(config_file)
+true_value = config['true_value']
 market_data['true_value'] = true_value
 
 traders_dictionary = dict()

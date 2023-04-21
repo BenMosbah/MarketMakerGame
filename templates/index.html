@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Market Making Game</title>
     <link rel="stylesheet" href="/static/style.css">
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script>
         const config = {{ config | tojson }};
     </script>
@@ -12,8 +13,19 @@
 </head>
 <body>
     <h1>Market Making Game</h1>
-    <div id="round-counter">Round: <span>1</span></div>
-    <div id="player-position">Player Position: <span>0</span></div>
+<div class="container-header">
+    <div class="question-box">
+        <p id="question"></p>
+    </div>
+    <div class="position-round-wrapper">
+        <div class="player-info" id="player-position">
+            Position: <span>0</span>
+        </div>
+        <div class="player-info" id="round-counter">
+            Round: <span>1</span>
+        </div>
+    </div>
+</div>
     <div class="container">
         <div class="bid">
             <h2>Bid</h2>
